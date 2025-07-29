@@ -35,7 +35,8 @@ class PoemFlow(Flow[PoemState]):
     @listen(generate_poem)
     def save_poem(self):
         print("Saving poem")
-        with open("poem.txt", "w") as f:
+        os.makedirs("data/out/files", exist_ok=True)
+        with open("data/out/files/poem.txt", "w") as f:
             f.write(self.state.poem)
 
 
