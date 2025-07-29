@@ -6,29 +6,32 @@
     - [💜 …in virtual environment](#-in-virtual-environment)
     - [💔 …locally without uv](#-locally-without-uv)
 
+# CrewAI Boilerplate for Keboola Custom Python Component
 
-# Example Repository for Custom Python Component
+This repository provides a boilerplate for running [CrewAI](https://github.com/joaomdmoura/crewAI) flows inside [Keboola's Custom Python Component](https://github.com/keboola/component-custom-python/). Use this as a starting point for integrating CrewAI automations into your Keboola projects.
 
-This is an example repository showing how you can use a custom Git repository for passing your own code into **Keboola's [Custom Python Component](https://github.com/keboola/component-custom-python/) (CPC)**.
-
-As the main source file in this repo is located right in the root directory, importing other source files works as expected both when developing locally and when ran using CPC.
-
+The structure and configuration are designed to make it easy to:
+- Develop and test CrewAI flows locally
+- Seamlessly deploy and run them in Keboola's custom python component environment
 
 ## ⚙️ Configuration
 
-For your convenience, the [data/user_parameters.json](data/user_parameters.json) file can have exactly the same contents that you will later be able to place in the **User Parameters** field in CPC configuration, so you can just copy-paste it. Because of that, we prepared a super simple script, which will convert this file to the structure expected by Keboola's [base Python Component](https://github.com/keboola/python-component/) (which is used internally in CPC to handle [Keboola Common Interface](https://developers.keboola.com/extend/common-interface/)) for you.
+Before running the project, you must create a configuration file:
 
+1. Copy the example config file:
+   ```sh
+   cp data/config.json.dist data/config.json
+   ```
+2. Edit `data/config.json` and provide your OpenAI API key in the parameters section (as `#OPENAI_API_KEY`).
 
 ## 📦 Managing dependencies
 
-The `keboola.component` package is listed in the [pyproject.toml](pyproject.toml) file just as a dev dependency, because CPC already includes it. This example uses [Astral's](https://astral.sh/) brilliant [uv tool](https://docs.astral.sh/uv/#installation) for package management, so when adding more dependencies to your project:
+Dependencies are managed using [uv](https://docs.astral.sh/uv/#installation). The `keboola.component` package is listed as a dev dependency, as it is already included in the Keboola environment. To add dependencies:
 
-- Use `uv add` for adding runtime dependencies (these will be installed when running the project via CPC).
-- Use `uv add --dev` for adding development dependencies (these won't be installed in CPC).
-
+- Use `uv add` for runtime dependencies (these will be installed when running the project in Keboola).
+- Use `uv add --dev` for development dependencies (these won't be installed in Keboola).
 
 ## 🚀 Running locally…
-
 
 ### 🐋 …in Docker
 
@@ -36,26 +39,7 @@ When you have Docker installed, the easiest way to run this example is using `do
 
 ```sh
 docker compose build  # voluntary when running for the 1st time
-docker compose up
+docker compose run dev
 ```
 
-This way, the configuration and source files are always updated during the build, which shall be done before you can say blueberry pie.
-
-
-### 💜 …in virtual environment
-
-For running this code locally without Docker, follow these steps:
-
-```sh
-# 🧑‍🔧 prepare the config.json file
-data/_create_config_json.sh data/user_parameters.json data/config.json
-# 💜 create virtual environment and install dependencies
-uv sync
-# 🚀 run
-uv run main.py
-```
-
-
-### 💔 …locally without uv
-
-*will be added later on*
+This way, the configuration and source files are always updated during the build.
