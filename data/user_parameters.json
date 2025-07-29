@@ -1,0 +1,7 @@
+{
+  "endpoint": "https://www.example.com",
+  "#my_secure_parameter_which_will_get_encrypted_in_keboola": "1a2b@3c4d!",
+
+  "rectangle_a": 3.0,
+  "rectangle_b": 4.0
+}

@@ -1,0 +1,15 @@
+services:
+  # for development purposes
+  dev:
+    build: .
+    # uncomment the following lines if you want to modify user parameters
+    # without rebuilding the image every time
+
+    # volumes:
+    #   - ./data:/data
+
+    # note that you have to create config.json yourself in such case using:
+    #   data/_create_config_json.sh data/user_parameters.json data/config.json
+
+    environment:
+      - KBC_DATADIR=/data
